@@ -12,7 +12,6 @@ email_address = raw_input("Enter your gmail address: ")
 password = getpass.getpass("Enter your password: ")
 
 
-
 #https://yuji.wordpress.com/2011/06/22/python-imaplib-imap-example-with-gmail/
 
 # LOG IN VIA GMAIL
@@ -28,10 +27,7 @@ def log_in():
 
 # GET LAST N MESSAGES
 
-def get_last_n_messages():
-    n = int(input("How many emails do you want to fetch? "))
-    result, data = mail.uid('search', 'CHARSET', 'UTF-8', "ALL")
-    ids_list = data[0].split()
+def get_last_n_messages(n, ids_list):
     last_email = len(ids_list) - 1
     for i in range(n):
         current_email_uid = ids_list[last_email - i]
@@ -62,6 +58,7 @@ def send_message():
     server.login(email_address, password)
     server.sendmail(email_address, recipient, email_text)
     server.quit()
+    print "Successfully sent email to %s:" % (msg['To'])
 
 # CHECK IF EMAIL IS VALID
 
@@ -72,7 +69,29 @@ def check_valid_email(email_address):
     else:
         return True
 
+# DISPLAY NUMBER OF ATTACHMENTS
+
+def number_of_attachments(n, ids_list):
+    last_email = len(ids_list) - 1
+    attachment_count = 0
+    for i in range(n):
+        current_email_uid = ids_list[last_email - i]
+        result, message_fetch = mail.uid('fetch', current_email_uid, '(RFC822)')
+        raw_email = message_fetch[0][1]
+        email_message = email.message_from_string(raw_email)
+        for part in email_message.walk():
+            if part.get('Content-Disposition'):
+                attachment_count += 1
+        print str(attachment_count) + ' attachments found'
+        attachment_count = 0
+
+
 
 log_in()
-get_last_n_messages()
-send_message()
+n = int(input("How many emails do you want to fetch? "))
+result, data = mail.uid('search', 'CHARSET', 'UTF-8', "ALL")
+ids_list = data[0].split()
+
+#get_last_n_messages(n)
+#send_message()
+number_of_attachments(n, ids_list)
