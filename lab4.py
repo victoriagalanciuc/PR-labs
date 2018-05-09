@@ -82,8 +82,36 @@ def number_of_attachments(n, ids_list):
         for part in email_message.walk():
             if part.get('Content-Disposition'):
                 attachment_count += 1
-        print str(attachment_count) + ' attachments found'
+        if attachment_count == 0:
+            print "No attachments found"
+        else:
+            print "%d attachments found" %(attachment_count) 
         attachment_count = 0
+
+# DISPLAY PREVIEW OF MESSAGE
+
+def display_preview(n, ids_list):
+    last_email = len(ids_list) - 1
+    for i in range(n):
+        current_email_uid = ids_list[last_email - i]
+        result, message_fetch = mail.uid('fetch', current_email_uid, '(RFC822)')
+        raw_email = message_fetch[0][1]
+        raw_email_string = raw_email.decode('utf-8')
+        #continue inside the same for loop as above
+        # converts byte literal to string removing b''
+        email_message = email.message_from_string(raw_email_string)
+        # this will loop through all the available multiparts in mail
+        for part in email_message.walk():
+            if part.get_content_type() == "text/plain": # ignore attachments/html
+                email_body_text = part.get_payload(decode=True)
+                print "PREVIEW OF EMAIL #", i+1, email_body_text.strip().split('\n')[0]
+        
+
+
+        
+
+
+                
 
 
 
@@ -94,4 +122,5 @@ ids_list = data[0].split()
 
 #get_last_n_messages(n)
 #send_message()
-number_of_attachments(n, ids_list)
+#number_of_attachments(n, ids_list)
+display_preview(n, ids_list)
