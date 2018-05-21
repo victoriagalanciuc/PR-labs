@@ -99,10 +99,10 @@ def aggregate_data():
 	print("\n- RESULTS -")
 	for i in range(len(Devices)):
 		t=0
-		print("\n",Devices[str(i)],": ") #device name
+		print Devices[str(i)],": " #device name
 		for j in data["TYPE"]:
 			if j == str(i) or j==i: #ordering data by device type
-				print("Device-|",data["ID"][t],"|:",data["VALUE"][t])
+				print "Device \t",data["ID"][t],"\t",data["VALUE"][t]
 		t+=1 
 
 
