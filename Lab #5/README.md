@@ -1,13 +1,22 @@
-# PR-labs
-labs on Network Programming <br/>
-I will be using Python Programming Language. <br/> <br/>
+# Lab 5 on Network Programming 
+<br/>
+## Elaborarea unei aplicații Client - Server cu scopul studierii protocolului de la nivelul de transport - TCP.
 
-Structure of the project is the following: <br/>
-README.md <br/>
-setup.py <br/>
-requirements.txt <br/>
-sample/__init__.py <br/>
-sample/core.py <br/>
-docs/conf.py <br/>
-tests/test.py
+### Comenzile acceptate de server
+Comenzile obligatorii care trebuie să le implementeze serverul:
+
+* /help - răspunde cu o listă a comenzilor suportate și o descriere a fiecărei comenzi;
+* /hello Text - raspunde cu textul care a fost expediat ca paremetru<
+* alte 3 comenzi cu funcțional diferit (e.g. timpul curent, generator de cifre, flip the coin etc)
+
+### Cerințe pentru sistem
+Cerințele de bază pentru aplicație sunt:
+
+* O aplicație client care se conectează la server și permite transmiterea comenzilor;
+* Comenzile sunt introduse de utilizator de la tastatură;
+* Răspunsul primit de la server este afișat utilizatorului.
+* O aplicație server care:
+  * Acceptă conexiunea de la client la un careva port;
+  * Primește comenzile de la client;
+  * Transmite un răspuns clientului.
 
