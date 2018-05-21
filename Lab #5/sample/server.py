@@ -24,10 +24,17 @@ def start_server(address, port, max_connections=5):
         # Recv up to 1kB of data
         data = incoming_socket.recv(1024)
         print(">>> Received data %s" % (data,))
-        # Send `data` to the client
-        incoming_socket.send(data)
-        # Close incoming connection
-        incoming_socket.close()
+        if(data[0] == '/'):
+            command = data[1:]
+            if command == 'help':
+                string_response = '\n'
+                for i in range(len(commands)):
+                    string_response = string_response + commands[i] + '\n'
+                    incoming_socket.send(string_response)
+                    incoming_socket.close()
+            
+
+
 
 
 if __name__ == '__main__':
