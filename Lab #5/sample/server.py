@@ -1,5 +1,12 @@
 import socket
 
+commands = [
+    '/help - Get all supported commands',
+    '/hello Text - Display the used text',
+    '/current_time - Display the current time',
+    '/number_generator - Generate a random number',
+    '/flip_coin - Flip the coin'
+]
 
 def start_server(address, port, max_connections=5):
     # We're using TCP/IP as transport
