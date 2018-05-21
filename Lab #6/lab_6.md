@@ -22,9 +22,7 @@ Now, when we send a message, we can see two new packages, because one message is
 * `1526931838792` -> Mon May 21 2018 19:43:58
 * `0cdfebca-02fe-4fa5-acdc-9941fa2937ff` : sender UUID 
 * `f0907c64-81b0-4ad7-9dc5-4ad4edde83e7` : receiver UUID
-* `ezp0eXBlIDpjaGF0LCA6dHh0ICJhYnJhY2FkYWJyYSJ9`, when decoded results in: 
-`{:type :chat, :txt "abracadabra"}` aka the message that had been sent.
-<br>
+* `ezp0eXBlIDpjaGF0LCA6dHh0ICJhYnJhY2FkYWJyYSJ9`, when decoded results in: `{:type :chat, :txt "abracadabra"}` aka the message that had been sent.
 Finally, when we decode the second package, we obtain the same structure, only when we decode the last part we obtain the status of delivery: `{:type :delivered}` <br> <br>
 ![alt text](https://github.com/victoriagalanciuc/PR-labs/blob/master/Lab%20%236/img/screenshot_3.png "Screenshot") 
 
