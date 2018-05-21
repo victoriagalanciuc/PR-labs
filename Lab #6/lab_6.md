@@ -25,4 +25,6 @@ Now, when we send a message, we can see two new packages, because one message is
 * `ezp0eXBlIDpjaGF0LCA6dHh0ICJhYnJhY2FkYWJyYSJ9`, when decoded results in: 
 `{:type :chat, :txt "abracadabra"}` aka the message that had been sent.
 <br>
-Finally, when we decode the second package, we obtain the same structure, only when we decode the last part we obtain the status of delivery: `{:type :delivered}`
+Finally, when we decode the second package, we obtain the same structure, only when we decode the last part we obtain the status of delivery: `{:type :delivered}` <br> <br>
+![alt text](https://github.com/victoriagalanciuc/PR-labs/blob/master/Lab%20%236/img/screenshot_3.png "Screenshot") 
+
