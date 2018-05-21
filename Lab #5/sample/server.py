@@ -1,4 +1,6 @@
 import socket
+from random import randint
+from random import choice
 
 commands = [
     '/help - Get all supported commands',
@@ -32,6 +34,29 @@ def start_server(address, port, max_connections=5):
                     string_response = string_response + commands[i] + '\n'
                     incoming_socket.send(string_response)
                     incoming_socket.close()
+            elif command == 'current_time':
+                incoming_socket.send(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
+                incoming_socket.close()
+
+            elif command == 'number_generator':
+                random_number = randint(0,1000)
+                incoming_socket.send('Random number generated is: ' + str(random_number)
+                incoming_socket.close()
+            elif command == 'flip_coin':
+                coin_sides = ['Head', 'Tails']
+                coin = choice(coin_sides)
+                incoming_socket.send('Coin was flipped. It landed as ' + coin)
+                incoming_socket.close()
+        else:
+            incoming_socket.send('The command you have introduced is invalid.')
+            incoming_socket.close()
+            
+
+
+
+
+
+
             
 
 
