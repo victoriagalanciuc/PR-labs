@@ -1,6 +1,5 @@
 import socket
-from random import randint
-from random import choice
+import random 
 from time import gmtime, strftime
 
 
@@ -20,6 +19,7 @@ def start_server(address, port, max_connections=5):
     # Listen for incoming connection (with max connections)
     server_socket.listen(max_connections)
     print("=== Listening for connections at %s:%s" % (address, port))
+    print(commands)
     while True:
         # Accept an incomming connection
         # Note: this is blocking and synchronous processing of incoming connection
@@ -39,29 +39,25 @@ def start_server(address, port, max_connections=5):
             elif command == 'current_time':
                 incoming_socket.send(strftime("%Y-%m-%d %H:%M:%S", gmtime()))
                 incoming_socket.close()
-
             elif command == 'number_generator':
-                random_number = randint(0,1000)
-                incoming_socket.send('Random number generated is: ' + str(random_number)
+                random_number = random.randint(0,1000)
+                incoming_socket.send('Random number generated is: ', random_number)
                 incoming_socket.close()
             elif command == 'flip_coin':
                 coin_sides = ['Head', 'Tails']
-                coin = choice(coin_sides)
+                coin = random.choice(coin_sides)
                 incoming_socket.send('Coin was flipped. It landed as ' + coin)
                 incoming_socket.close()
+            else:
+                list_of_commands = command.split()
+                if(list_of_commands[0] == 'hello'):
+                    incoming_socket.send(command[6:])
+                else:
+                    incoming_socket.send('Invalid')
+                    incoming_socket.close()
         else:
             incoming_socket.send('The command you have introduced is invalid.')
             incoming_socket.close()
-
-
-
-
-
-
-
-            
-
-
 
 
 if __name__ == '__main__':
