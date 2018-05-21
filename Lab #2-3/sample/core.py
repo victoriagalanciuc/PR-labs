@@ -1,8 +1,10 @@
+
 import requests
 import csv
 import json
 import time
-import xml.etree.ElementTree as ET
+#import xmltodict
+import xml.etree.ElementTree
 from threading import Thread 
 from itertools import chain
 
@@ -47,16 +49,21 @@ def parse_data(url):
 		        RESULT["TYPE"].append([data.get(key)])   
 		    if key == "value":
 		        RESULT["VALUE"].append([data.get(key)]) 
+
 	elif (value_format == "Application/xml"):
-		print "xml"
-		#data = ET.parse(result)
-		#root = tree.getroot()
-		#print root
+		data = xmltodict.parse(result.text)["device"]
+		for key in data:
+			if key == "@id":
+				OUTPUT["ID"].append([data.get(key)])  
+			if key == "type":
+				OUTPUT["TYPE"].append([data.get(key)])   
+			if key == "value":
+				OUTPUT["VALUE"].append([data.get(key)])  
 
 	elif (value_format == "text/csv"):
 		d = {'device_id':[],
-	     'sensor_type':[],
-	     'value':[]}
+	     	'sensor_type':[],
+	     	'value':[]}
 		reader = csv.DictReader(result.text.splitlines())        
 		for row in reader:
 			for key in row:
@@ -89,12 +96,16 @@ def aggregate_data():
 
 	data = {"ID":id_list,"TYPE":type_list,"VALUE":value_list}
 	print data
-	# not finished
+	print("\n- RESULTS -")
+	for i in range(len(Devices)):
+		t=0
+		print("\n",Devices[str(i)],": ") #device name
+		for j in data["TYPE"]:
+			if j == str(i) or j==i: #ordering data by device type
+				print("Device-|",data["ID"][t],"|:",data["VALUE"][t])
+		t+=1 
 
 
-
-
-    
 urls_list, response_content, urls_number, secret_key_header = request_secret_key(URL)
 parallel_requests(URL)
 aggregate_data()
