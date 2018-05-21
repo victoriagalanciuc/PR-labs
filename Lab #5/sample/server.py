@@ -1,6 +1,8 @@
 import socket
 from random import randint
 from random import choice
+from time import gmtime, strftime
+
 
 commands = [
     '/help - Get all supported commands',
@@ -50,7 +52,7 @@ def start_server(address, port, max_connections=5):
         else:
             incoming_socket.send('The command you have introduced is invalid.')
             incoming_socket.close()
-            
+
 
 
 
