@@ -2,7 +2,6 @@
 <br/>
 
 ## Elaborarea unei aplicații Client - Server cu scopul studierii protocolului de la nivelul de transport - TCP.
-<br/>
 
 ### Comenzile acceptate de server
 Comenzile obligatorii care trebuie să le implementeze serverul:
